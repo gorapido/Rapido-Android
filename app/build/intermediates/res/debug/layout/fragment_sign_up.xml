@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_blue"
+    android:layout_gravity="center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:gravity="center">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/first_name_hint"
+            android:padding="16dp"
+            android:textColorHint="@color/grey"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/edit_text_first_name_signup" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/last_name_hint"
+            android:padding="16dp"
+            android:textColorHint="@color/grey"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/edit_text_last_name_signup"/>
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:hint="@string/email_hint"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/white"
+        android:id="@+id/edit_text_email_signup"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:hint="@string/password_hint"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"
+        android:textColorHint="@color/grey"
+        android:textColor="@color/white"
+        android:id="@+id/edit_text_password_signup"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signup"
+        android:textColor="@color/white"
+        android:background="@color/dark_blue"
+        android:padding="16dp"
+        android:id="@+id/button_signup"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout><!-- From: file:/E:/Downloads/Rapido/app/src/main/res/layout/fragment_sign_up.xml -->
