@@ -2,16 +2,23 @@ package rapido.gorapido.co.rapido;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.parse.LogInCallback;
+import com.parse.GetDataCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +33,7 @@ public class ParseHelper {
     public static boolean isLoggedIn;
     public static Activity context;
     public static ParseUser currentUser;
+    public static String avatarString;
     public static void initializeConnection(Activity context) {
         // Enable Local Datastore.
         Parse.enableLocalDatastore(context);
@@ -69,6 +77,38 @@ public class ParseHelper {
             return;
         }
         currentUser.setPassword(password);
+    }
+    public static void createAvatar(Bitmap img){
+        if(!isCurrentUser()){
+            return;
+        }
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        img.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] data = stream.toByteArray();
+        ParseFile parseFile = new ParseFile("avatar.jpg", data);
+        currentUser.put(AVATAR, parseFile);
+        saveCurrentUser();
+    }
+    public static void retrieveAvatar(final ImageButton imageButton){
+        avatarString = null;
+        if(!isCurrentUser()) {
+            return;
+        }
+        ParseFile parseFile = currentUser.getParseFile(AVATAR);
+        if(parseFile == null) {
+            return;
+        }
+        parseFile.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] bytes, ParseException e) {
+                if(e == null) {
+                    ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                    imageButton.setImageBitmap(BitmapFactory.decodeStream(bis));
+                }else{
+                    Log.e("ParseHelper", e.getMessage());
+                }
+            }
+        });
     }
     public static void saveCurrentUser(){
         currentUser.saveInBackground();

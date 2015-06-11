@@ -1,4 +1,4 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:state_pressed="true" android:drawable="@drawable/default_image_button_pressed" />
     <item android:drawable="@drawable/default_image_button" />
-</selector><!-- From: file:/E:/Downloads/Rapido/app/src/main/res/drawable/default_image_button_selector.xml -->
+</selector><!-- From: file:/home/rapido/AndroidStudioProjects/rapidoandroid/app/src/main/res/drawable/default_image_button_selector.xml -->

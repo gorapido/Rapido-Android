@@ -1,9 +1,9 @@
 package rapido.gorapido.co.rapido;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -11,6 +11,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +32,7 @@ public class ProfileFragment extends Fragment {
     Switch Savailable;
     ImageButton IBprofilePic;
     View v;
+    String imgDecodableString;
     public int RESULT_LOAD_IMG = 1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,16 +64,16 @@ public class ProfileFragment extends Fragment {
         TVprivacyPolicy = (TextView)v.findViewById(R.id.text_view_privacy_policy_link_profile);
         Savailable = (Switch)v.findViewById(R.id.switch_available_profile);
         IBprofilePic = (ImageButton)v.findViewById(R.id.image_button_profile);
+        ParseHelper.retrieveAvatar(IBprofilePic);
     }
+    public void setAvatarPic(){
 
+    }
     private void setNameListener() {
         TVfullname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle args = new Bundle();
-                args.putString(EditItemDialogFragment.TYPE_KEY, EditItemDialogFragment.NAME_VALUE);
-                EditItemDialogFragment dialog = new EditItemDialogFragment();
-                dialog.setArguments(args);
+                EditItemDialogFragment dialog = getDialog(EditItemDialogFragment.NAME_VALUE);
                 dialog.setEditItemDialogListener(new EditItemDialogFragment.EditItemDialogListener() {
                     @Override
                     public void onDialogPositiveClick(EditItemDialogFragment dialog) {
@@ -109,6 +111,7 @@ public class ProfileFragment extends Fragment {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
                         IBprofilePic.setColorFilter(new PorterDuffColorFilter(Color.argb(100, 255, 255, 255), PorterDuff.Mode.SRC_OVER));
+                        callGallery();
                         break;
                     }
                     case MotionEvent.ACTION_MOVE: {
@@ -128,10 +131,7 @@ public class ProfileFragment extends Fragment {
         TVemail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle args = new Bundle();
-                args.putString(EditItemDialogFragment.TYPE_KEY, EditItemDialogFragment.EMAIL_VALUE);
-                EditItemDialogFragment dialog = new EditItemDialogFragment();
-                dialog.setArguments(args);
+                EditItemDialogFragment dialog = getDialog(EditItemDialogFragment.EMAIL_VALUE);
                 dialog.setEditItemDialogListener(new EditItemDialogFragment.EditItemDialogListener() {
                     @Override
                     public void onDialogPositiveClick(EditItemDialogFragment dialog) {
@@ -160,48 +160,58 @@ public class ProfileFragment extends Fragment {
         TVpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle args = new Bundle();
-                args.putString(EditItemDialogFragment.TYPE_KEY, EditItemDialogFragment.PASSWORD_VALUE);
-                EditItemDialogFragment dialog = new EditItemDialogFragment();
-                dialog.setIsPassword(true);
-                dialog.setArguments(args);
-                dialog.setEditItemDialogListener(new EditItemDialogFragment.EditItemDialogListener() {
-                    @Override
-                    public void onDialogPositiveClick(EditItemDialogFragment dialog) {
-                        String password = dialog.getText();
-                        ParseHelper.setPasswordForCurrentUser(password);
-                        dialog.dismiss();
-                        ParseHelper.saveCurrentUser();
-                        Toast.makeText(getActivity(), R.string.success, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onDialogNegativeClick(EditItemDialogFragment dialog) {
-                    }
-                });
-                dialog.show(getFragmentManager(), EditItemDialogFragment.PASSWORD_VALUE);
+                confirmPassword();
             }
         });
     }
 
-    private void setImageListener(){
-        IBprofilePic.setOnClickListener(new View.OnClickListener() {
+    private EditItemDialogFragment getDialog(String key) {
+        Bundle args = new Bundle();
+        args.putString(EditItemDialogFragment.TYPE_KEY, key);
+        EditItemDialogFragment dialog = new EditItemDialogFragment();
+        dialog.setArguments(args);
+        return dialog;
+    }
+
+    private void confirmPassword(){
+        EditItemDialogFragment dialog = getDialog(EditItemDialogFragment.CONFIRM_PASSWORD_VALUE);
+        dialog.setIsPassword(true);
+        dialog.setEditItemDialogListener(new EditItemDialogFragment.EditItemDialogListener() {
             @Override
-            public void onClick(View v) {
-                // Create intent to Open Image applications like Gallery, Google Photos
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                // Start the Intent
-                startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+            public void onDialogPositiveClick(EditItemDialogFragment dialog) {
+                if (ParseHelper.loginUser(ParseHelper.getEmailFromCurrentUser(), dialog.getText())) {
+                    editPassword();
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(getActivity(), R.string.password_error, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onDialogNegativeClick(EditItemDialogFragment dialog) {
             }
         });
+        dialog.show(getFragmentManager(), EditItemDialogFragment.CONFIRM_PASSWORD_VALUE);
+    }
+
+
+    private void editPassword() {
+        EditPasswordDialogFragment dialog = new EditPasswordDialogFragment();
+        dialog.show(getFragmentManager(), EditPasswordDialogFragment.PASSWORD_VALUE);
+    }
+    private void callGallery(){
+        // Create intent to Open Image applications like Gallery, Google Photos
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        // Start the Intent
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             // When an Image is picked
-            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
+            if (requestCode == RESULT_LOAD_IMG && resultCode == getActivity().RESULT_OK
                     && null != data) {
                 // Get the Image from data
 
@@ -209,7 +219,7 @@ public class ProfileFragment extends Fragment {
                 String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
                 // Get the cursor
-                Cursor cursor = getContentResolver().query(selectedImage,
+                Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
                 // Move to first row
                 cursor.moveToFirst();
@@ -217,18 +227,19 @@ public class ProfileFragment extends Fragment {
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 imgDecodableString = cursor.getString(columnIndex);
                 cursor.close();
-                ImageButton imgButton = (ImageButton) findViewById(R.id.image_button_profile);
+                ImageButton imgButton = (ImageButton) v.findViewById(R.id.image_button_profile);
                 // Set the Image in ImageView after decoding the String
-                imgButton.setImageBitmap(BitmapFactory
-                        .decodeFile(imgDecodableString));
-
+                Bitmap image = BitmapFactory.decodeFile(imgDecodableString);
+                imgButton.setImageBitmap(image);
+                ParseHelper.createAvatar(image);
             } else {
-                Toast.makeText(this, "You haven't picked Image",
+                Toast.makeText(getActivity(), "You haven't picked an image",
                         Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
+            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
                     .show();
+            Log.e("ProfileFragment", e.getMessage().toString());
         }
 
     }

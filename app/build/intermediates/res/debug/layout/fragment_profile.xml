@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/light_blue">
     <FrameLayout
                   android:orientation="vertical"
                   android:layout_width="match_parent"
@@ -121,4 +122,4 @@
 
 
     </FrameLayout>
-</ScrollView><!-- From: file:/E:/Downloads/Rapido/app/src/main/res/layout/fragment_profile.xml -->
+</ScrollView><!-- From: file:/home/rapido/AndroidStudioProjects/rapidoandroid/app/src/main/res/layout/fragment_profile.xml -->

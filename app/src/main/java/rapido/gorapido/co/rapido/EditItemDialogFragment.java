@@ -20,9 +20,9 @@ public class EditItemDialogFragment extends DialogFragment {
         public void onDialogNegativeClick(EditItemDialogFragment dialog);
     }
     public static final String TYPE_KEY = "type";
-    public static final String NAME_VALUE = "Name";
-    public static final String PASSWORD_VALUE = "Password";
-    public static final String EMAIL_VALUE = "Email";
+    public static final String NAME_VALUE = "Edit Name";
+    public static final String EMAIL_VALUE = "Edit Email";
+    public static final String CONFIRM_PASSWORD_VALUE = "Confirm Password";
     private boolean isPassword = false;
     String type;
     EditText text;
@@ -52,7 +52,7 @@ public class EditItemDialogFragment extends DialogFragment {
         View v = inflater.inflate(R.layout.dialog_edit_item, null);
         text = (EditText)v.findViewById(R.id.edit_text_item_dialog);
         builder.setView(v);
-        builder.setMessage(getString(R.string.change_dialog) + " " + type)
+        builder.setMessage(type)
                 .setPositiveButton(R.string.ok_button, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         listener.onDialogPositiveClick(EditItemDialogFragment.this);

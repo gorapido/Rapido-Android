@@ -4,6 +4,7 @@
     <string name="last_name_hint">Last Name</string>
     <string name="email_hint">your_email@email.com</string>
     <string name="password_hint">Password</string>
+    <string name="confirm_password_hint">Confirm Password</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="signin">Sign In</string>
@@ -25,6 +26,8 @@
     <string name="success">Success!</string>
     <string name="name_error">You must have a first and a last name!</string>
     <string name="email_error">You must enter a valid email address!</string>
+    <string name="password_error">Password incorrect!</string>
+    <string name="password_matching_error">Passwords do not match!</string>
     <string name="action_settings">Settings</string>
 
 <!-- TODO: Remove or change this placeholder text -->
