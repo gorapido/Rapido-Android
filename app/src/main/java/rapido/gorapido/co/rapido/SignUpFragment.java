@@ -33,10 +33,7 @@ public class SignUpFragment extends Fragment{
                 String lastName = ETlastName.getText().toString();
                 String email = ETemail.getText().toString();
                 String password = ETpassword.getText().toString();
-                if(ParseHelper.signUpUser(firstName,lastName,email,password,getActivity())){
-                    Intent i = new Intent(getActivity(), ProfileActivity.class);
-                    startActivity(i);
-                }
+                ParseHelper.signUpUser(firstName,lastName,email,password,getActivity());
             }
         });
         return v;

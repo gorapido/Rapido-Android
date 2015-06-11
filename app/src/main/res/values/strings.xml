@@ -22,7 +22,9 @@
     <string name="change_dialog">Edit</string>
     <string name="ok_button">Ok</string>
     <string name="cancel_button">Cancel</string>
+    <string name="success">Success!</string>
     <string name="name_error">You must have a first and a last name!</string>
+    <string name="email_error">You must enter a valid email address!</string>
     <string name="action_settings">Settings</string>
 
 <!-- TODO: Remove or change this placeholder text -->

@@ -231,6 +231,7 @@
     <string name="change_password_title">Change Password</string>
     <string name="contact_us_link">Contact Us</string>
     <string name="email">Email</string>
+    <string name="email_error">You must enter a valid email address!</string>
     <string name="email_hint">your_email@email.com</string>
     <string name="email_title">Email:</string>
     <string name="first_name_hint">First Name</string>
@@ -253,6 +254,7 @@
     <string name="status_bar_notification_info_overflow">999+</string>
     <!-- From: file:/E:/Downloads/Rapido/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="success">Success!</string>
     <string name="terms_of_service_link">Terms of Service</string>
     <!-- From: file:/E:/Downloads/Rapido/app/src/main/res/values/styles.xml -->
     <eat-comment/>

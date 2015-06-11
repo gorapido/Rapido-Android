@@ -1,6 +1,7 @@
 package rapido.gorapido.co.rapido;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.Image;
 import android.util.Log;
 import android.widget.Toast;
@@ -11,6 +12,9 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by User0 on 6/3/2015.
  */
@@ -20,7 +24,6 @@ public class ParseHelper {
     public static String AVATAR = "avatar";
     public static boolean connected = false;
     public static boolean isLoggedIn;
-    public static boolean canSignUp;
     public static Activity context;
     public static ParseUser currentUser;
     public static void initializeConnection(Activity context) {
@@ -61,6 +64,12 @@ public class ParseHelper {
         }
         currentUser.setEmail(email);
     }
+    public static void setPasswordForCurrentUser(String password){
+        if(!isCurrentUser()){
+            return;
+        }
+        currentUser.setPassword(password);
+    }
     public static void saveCurrentUser(){
         currentUser.saveInBackground();
     }
@@ -88,10 +97,9 @@ public class ParseHelper {
         }
         return isLoggedIn;
     }
-    public static boolean signUpUser(String firstName, String lastName, String email, String password, Activity context){
+    public static void signUpUser(String firstName, String lastName, String email, String password, Activity context){
         ParseHelper.context = context;
         ParseUser user = new ParseUser();
-        canSignUp = false;
         user.setUsername(email);
         user.setEmail(email);
         user.setPassword(password);
@@ -101,14 +109,26 @@ public class ParseHelper {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    canSignUp = true;
+                    Intent i = new Intent(ParseHelper.context, ProfileActivity.class);
+                    ParseHelper.context.startActivity(i);
                 } else {
                     Toast.makeText(ParseHelper.context, e.getMessage(), Toast.LENGTH_LONG).show();
-                    canSignUp = false;
                 }
             }
         });
-        return canSignUp;
+    }
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
     }
 }
 

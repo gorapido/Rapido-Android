@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ public class EditItemDialogFragment extends DialogFragment {
     public static final String NAME_VALUE = "Name";
     public static final String PASSWORD_VALUE = "Password";
     public static final String EMAIL_VALUE = "Email";
+    private boolean isPassword = false;
     String type;
     EditText text;
     EditItemDialogListener listener;
@@ -61,8 +63,19 @@ public class EditItemDialogFragment extends DialogFragment {
                         listener.onDialogNegativeClick(EditItemDialogFragment.this);
                     }
                 });
+        if(isPassword){
+            setToPassword();
+        }
         // Create the AlertDialog object and return it
         return builder.create();
+    }
+    public void setIsPassword(boolean isPassword){
+        this.isPassword = isPassword;
+    }
+    private void setToPassword(){
+        text.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        text.setSelection(text.getText().length());
     }
     public String getText(){
         return text.getText().toString();
