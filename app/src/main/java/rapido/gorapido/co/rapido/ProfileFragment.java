@@ -1,5 +1,6 @@
 package rapido.gorapido.co.rapido;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -32,6 +35,8 @@ public class ProfileFragment extends Fragment {
     Switch Savailable;
     ImageButton IBprofilePic;
     View v;
+    int imgHeight = 0;
+    int imgWidth = 0;
     String imgDecodableString;
     public int RESULT_LOAD_IMG = 1;
     @Override
@@ -49,6 +54,20 @@ public class ProfileFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        final ViewTreeObserver observer = IBprofilePic.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            public void onGlobalLayout() {
+                IBprofilePic.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                imgWidth = IBprofilePic.getWidth();
+                imgHeight = IBprofilePic.getHeight();
+                ParseHelper.retrieveAvatar(IBprofilePic, imgWidth, imgHeight);
+            }
+        });
+    }
+
     private void setFullname() {
         TVfullname.setText(ParseHelper.getStringFromCurrentUser(ParseHelper.FIRST_NAME) + " "
                 + ParseHelper.getStringFromCurrentUser(ParseHelper.LAST_NAME));
@@ -64,11 +83,8 @@ public class ProfileFragment extends Fragment {
         TVprivacyPolicy = (TextView)v.findViewById(R.id.text_view_privacy_policy_link_profile);
         Savailable = (Switch)v.findViewById(R.id.switch_available_profile);
         IBprofilePic = (ImageButton)v.findViewById(R.id.image_button_profile);
-        ParseHelper.retrieveAvatar(IBprofilePic);
     }
-    public void setAvatarPic(){
 
-    }
     private void setNameListener() {
         TVfullname.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,7 +227,7 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             // When an Image is picked
-            if (requestCode == RESULT_LOAD_IMG && resultCode == getActivity().RESULT_OK
+            if (requestCode == RESULT_LOAD_IMG && resultCode == Activity.RESULT_OK
                     && null != data) {
                 // Get the Image from data
 
@@ -227,11 +243,11 @@ public class ProfileFragment extends Fragment {
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 imgDecodableString = cursor.getString(columnIndex);
                 cursor.close();
-                ImageButton imgButton = (ImageButton) v.findViewById(R.id.image_button_profile);
                 // Set the Image in ImageView after decoding the String
                 Bitmap image = BitmapFactory.decodeFile(imgDecodableString);
-                imgButton.setImageBitmap(image);
-                ParseHelper.createAvatar(image);
+                Bitmap scaled = Bitmap.createScaledBitmap(image, imgWidth, imgHeight, true);
+                IBprofilePic.setImageBitmap(scaled);
+                ParseHelper.createAvatar(scaled);
             } else {
                 Toast.makeText(getActivity(), "You haven't picked an image",
                         Toast.LENGTH_LONG).show();
@@ -239,7 +255,7 @@ public class ProfileFragment extends Fragment {
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
                     .show();
-            Log.e("ProfileFragment", e.getMessage().toString());
+            Log.e("ProfileFragment", e.getMessage());
         }
 
     }

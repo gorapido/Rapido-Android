@@ -23,7 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by User0 on 6/3/2015.
+ * Created by Michael on 6/3/2015.
  */
 public class ParseHelper {
     public static String FIRST_NAME = "firstName";
@@ -42,11 +42,7 @@ public class ParseHelper {
     }
     public static boolean isCurrentUser(){
         currentUser = ParseUser.getCurrentUser();
-        if(currentUser != null){
-            return true;
-        }else{
-            return false;
-        }
+        return currentUser != null;
     }
     public static String getStringFromCurrentUser(String key){
         if(!isCurrentUser()){
@@ -89,7 +85,7 @@ public class ParseHelper {
         currentUser.put(AVATAR, parseFile);
         saveCurrentUser();
     }
-    public static void retrieveAvatar(final ImageButton imageButton){
+    public static void retrieveAvatar(final ImageButton imageButton, final int width, final int height){
         avatarString = null;
         if(!isCurrentUser()) {
             return;
@@ -102,8 +98,26 @@ public class ParseHelper {
             @Override
             public void done(byte[] bytes, ParseException e) {
                 if(e == null) {
-                    ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-                    imageButton.setImageBitmap(BitmapFactory.decodeStream(bis));
+//                    float ratiow = -1, ratioh = -1;
+                    Bitmap original = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    Bitmap altered = original;
+                    if(original.getWidth() != width){
+//                        ratiow = (float)width/original.getWidth();
+                        altered = Bitmap.createScaledBitmap(original, width, height, true);
+                    }
+//                    if(original.getHeight() != height){
+//                        ratioh = (float)height/original.getHeight();
+//                    }
+//                    BitmapFactory.Options factory = new BitmapFactory.Options();
+//                    if(ratiow >= ratioh && ratiow != -1){
+//                        factory.inSampleSize = (int)(ratiow);
+//                    }else if(ratioh != -1){
+//                        factory.inSampleSize = (int)(ratioh);
+//                    }
+//                    if(ratiow != -1 || ratioh != -1){
+//                        altered = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, factory);
+//                    }
+                    imageButton.setImageBitmap(altered);
                 }else{
                     Log.e("ParseHelper", e.getMessage());
                 }
@@ -161,10 +175,9 @@ public class ParseHelper {
         boolean isValid = false;
 
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        CharSequence inputStr = email;
 
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(inputStr);
+        Matcher matcher = pattern.matcher(email);
         if (matcher.matches()) {
             isValid = true;
         }
