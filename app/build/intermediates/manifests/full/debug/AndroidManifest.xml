@@ -32,7 +32,7 @@
             android:noHistory="true" >
         </activity>
         <activity
-            android:name="rapido.gorapido.co.rapido.ProfileActivity"
+            android:name="rapido.gorapido.co.rapido.HomeActivity"
             android:label="Rapido" >
         </activity>
     </application>

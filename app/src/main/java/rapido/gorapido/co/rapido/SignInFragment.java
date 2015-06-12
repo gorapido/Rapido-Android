@@ -37,7 +37,7 @@ public class SignInFragment extends Fragment {
                 String password = ETpassword.getText().toString();
                 if(ParseHelper.loginUser(email, password)){
                     Toast.makeText(getActivity(), "Logged in!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getActivity(), ProfileActivity.class);
+                    Intent i = new Intent(getActivity(), HomeActivity.class);
                     startActivity(i);
                 }else{
                     Toast.makeText(getActivity(), "Username/Password combo not found!", Toast.LENGTH_SHORT).show();

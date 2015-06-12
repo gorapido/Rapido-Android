@@ -28,6 +28,8 @@
     <string name="email_error">You must enter a valid email address!</string>
     <string name="password_error">Password incorrect!</string>
     <string name="password_matching_error">Passwords do not match!</string>
+    <string name="hire_tab">Hire</string>
+    <string name="profile_tab">Profile</string>
     <string name="action_settings">Settings</string>
 
 <!-- TODO: Remove or change this placeholder text -->

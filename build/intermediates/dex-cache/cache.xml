@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/home/rapido/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jar="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-477ce21e53ea957d2829716419ebb902c3d8d6f5.jar" />
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/classes-cadf84f149c5f7299690e210ffccfb41230eecb5.jar" />
     </item>
     <item
         jar="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
@@ -16,18 +16,32 @@
         <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/classes-5e2f311a2f481ecd69adc953aeac22b76d323106.jar" />
     </item>
     <item
+        jar="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/exploded-aar/com.android.support/support-v13/21.0.3/jars/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0dcc55e70f7ebf7238fe2ec53f662eb378ab2668">
+        <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-b6c91d6b3be435ad552096229d61fd0886f8caa9.jar" />
+    </item>
+    <item
+        jar="/home/rapido/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-477ce21e53ea957d2829716419ebb902c3d8d6f5.jar" />
+    </item>
+    <item
+        jar="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/exploded-aar/com.android.support/support-v13/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2c2071dcaf7a008c3b01a6381a33be55396bab09">
+        <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/classes-3fcff9d677d5e029d7c0df5b7cb3adbbb73350d1.jar" />
+    </item>
+    <item
         jar="/home/rapido/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
         <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/bolts-android-1.2.0-6dbbe6291a5ae831b3431e68ea4a1e7dce2ebc51.jar" />
-    </item>
-    <item
-        jar="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-d836377c3722ddfd23dbd3dd7ed0f4428191e5dd.jar" />
     </item>
     <item
         jar="/home/rapido/AndroidStudioProjects/rapidoandroid/app/libs/Parse-1.9.2.jar"
@@ -37,11 +51,11 @@
         <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/Parse-1.9.2-aed75fdff9c24dadd7a79ff7c8d0c5a3d72473dc.jar" />
     </item>
     <item
-        jar="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jar="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/classes-cadf84f149c5f7299690e210ffccfb41230eecb5.jar" />
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/home/rapido/AndroidStudioProjects/rapidoandroid/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-d836377c3722ddfd23dbd3dd7ed0f4428191e5dd.jar" />
     </item>
 
 </items>

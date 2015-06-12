@@ -101,6 +101,9 @@ public class ParseHelper {
 //                    float ratiow = -1, ratioh = -1;
                     Bitmap original = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     Bitmap altered = original;
+                    if(original == null){
+                        return;
+                    }
                     if(original.getWidth() != width){
 //                        ratiow = (float)width/original.getWidth();
                         altered = Bitmap.createScaledBitmap(original, width, height, true);
@@ -130,13 +133,6 @@ public class ParseHelper {
     public static void logout(){
         ParseUser.logOut();
     }
-    public static Image getImageFromCurrentUser(String key) throws Exception{
-        try{
-            return (Image)currentUser.get(key);
-        }catch (Exception e){
-            throw new Exception("Error getting image.");
-        }
-    }
     public static boolean loginUser(String email, String password){
         ParseUser user = new ParseUser();
         isLoggedIn = true;
@@ -163,7 +159,7 @@ public class ParseHelper {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    Intent i = new Intent(ParseHelper.context, ProfileActivity.class);
+                    Intent i = new Intent(ParseHelper.context, HomeActivity.class);
                     ParseHelper.context.startActivity(i);
                 } else {
                     Toast.makeText(ParseHelper.context, e.getMessage(), Toast.LENGTH_LONG).show();

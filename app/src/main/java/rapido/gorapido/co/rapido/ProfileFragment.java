@@ -42,7 +42,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
         v = inflater.inflate(R.layout.fragment_profile, container, false);
         initializeWidgets(v);
         setFullname();
@@ -51,6 +50,10 @@ public class ProfileFragment extends Fragment {
         setPictureListener();
         setEmailListener();
         setPasswordListener();
+        setContactUsListener();
+        setRateRapidoListener();
+        setTermsOfServiceListener();
+        setPrivacyPolicyListener();
         return v;
     }
 
@@ -180,6 +183,52 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+    private void goToLink(String link) {
+        String url = link;
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+    public void setRateRapidoListener(){
+        TVrateRapido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToLink("https://www.surveymonkey.com/s/FWCMFBG");
+            }
+        });
+    }
+
+
+    public void setContactUsListener(){
+        TVcontactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), R.string.success, Toast.LENGTH_SHORT).show();
+                Intent send = new Intent(Intent.ACTION_SENDTO);
+                String uriText = "mailto:" + Uri.encode("alex@gorapido.co");
+                Uri uri = Uri.parse(uriText);
+
+                send.setData(uri);
+                startActivity(Intent.createChooser(send, "Send mail..."));
+            }
+        });
+    }
+    public void setTermsOfServiceListener(){
+        TVtermsOfService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToLink("https://drive.google.com/file/d/0B4E_KqMyCBfMZkxnRUpfSkIxNlk/view?usp=sharing");
+            }
+        });
+    }
+    public void setPrivacyPolicyListener(){
+        TVprivacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToLink("https://drive.google.com/a/gorapido.co/file/d/0B4E_KqMyCBfMYm5QanI2aFZTNlk/view?usp=sharing");
+            }
+        });
+    }
 
     private EditItemDialogFragment getDialog(String key) {
         Bundle args = new Bundle();
@@ -258,24 +307,5 @@ public class ProfileFragment extends Fragment {
             Log.e("ProfileFragment", e.getMessage());
         }
 
-    }
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.menu_default, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menu_item_logout:
-                ParseHelper.logout();
-                Intent i = new Intent(getActivity(), SignInActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }
