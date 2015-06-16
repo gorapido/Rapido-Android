@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.NoActionBar"/>
+    <style name="AppTheme" parent="AppBaseTheme">
+
+    </style>
+    <style name="ProfileText" parent="android:style/TextAppearance.Large">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="Widget.MyApp.ActionBar" parent="AppTheme">
+        <item name="android:background">@color/dark_blue</item>
+    </style>
+    <style name="HorizontalLinearLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="SmallDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/dark_blue</item>
+    </style>
+    <style name="ProfileLink" parent="style/ProfileText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+</resources>
