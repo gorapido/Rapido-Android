@@ -1,28 +1,36 @@
 package co.gorapido.rapido;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.BaseAdapter;
+import android.widget.Toast;
+
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by rapido on 6/12/15.
  */
-public class HireFragment extends Fragment {
-    ListView lv;
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_hire, container, false);
+public class HireFragment extends ListsFragment {
+    @Override
+    protected BaseAdapter setListAdapter() {
         String[] categoriesOfCompanies = getResources().getStringArray(R.array.categories_of_companies);
-        lv = (ListView) v.findViewById(R.id.list_view_categories_hire);
-        List<String> your_array_list = Arrays.asList(categoriesOfCompanies);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, your_array_list);
-        lv.setAdapter(arrayAdapter);
-        return v;
+        List<String> listOfCategories = Arrays.asList(categoriesOfCompanies);
+        return new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOfCategories);
     }
+
+    @Override
+    protected void onListItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String currentCategory = parent.getItemAtPosition(position).toString();
+        Intent i = new Intent(getActivity(), ListingActivity.class);
+        i.putExtra(CompanyListFragment.CATEGORY, currentCategory);
+        startActivity(i);
+    }
+
 }

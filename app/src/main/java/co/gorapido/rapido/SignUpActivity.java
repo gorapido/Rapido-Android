@@ -12,7 +12,7 @@ public class SignUpActivity extends FragmentActivity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_frame);
+        setContentView(R.layout.sign_in_frame);
         FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.sign_in_frame);
 
