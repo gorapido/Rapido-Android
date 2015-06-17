@@ -22,6 +22,7 @@ public class EditItemDialogFragment extends DialogFragment {
     public static final String TYPE_KEY = "type";
     public static final String NAME_VALUE = "Edit Name";
     public static final String EMAIL_VALUE = "Edit Email";
+    public static final String PHONE_VALUE = "Edit Phone Number";
     public static final String CONFIRM_PASSWORD_VALUE = "Confirm Password";
     private boolean isPassword = false;
     String type;

@@ -26,6 +26,15 @@
             android:layout_gravity="center_horizontal"
             android:text="Test"/>
         <TextView
+            android:id="@+id/text_view_company_profile_site"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="http://www.test.com"/>
+        <TextView
             android:id="@+id/text_view_company_profile_summary"
             android:padding="16dp"
             android:layout_width="wrap_content"
@@ -48,14 +57,5 @@
             android:text="Call Now"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/text_view_company_profile_site"
-            android:gravity="center"
-            android:padding="8dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="http://www.test.com"/>
     </LinearLayout>
 </ScrollView>

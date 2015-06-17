@@ -16,7 +16,7 @@ import android.widget.Toast;
  * Created by User0 on 6/3/2015.
  */
 public class SignUpFragment extends Fragment{
-    public EditText ETfirstName, ETlastName, ETemail, ETpassword;
+    public EditText ETfirstName, ETlastName, ETemail, ETpassword, ETphoneNumber;
     public Button BTsignUp;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -25,6 +25,7 @@ public class SignUpFragment extends Fragment{
         ETlastName = (EditText)v.findViewById(R.id.edit_text_last_name_signup);
         ETemail = (EditText)v.findViewById(R.id.edit_text_email_signup);
         ETpassword = (EditText)v.findViewById(R.id.edit_text_password_signup);
+        ETphoneNumber = (EditText)v.findViewById(R.id.edit_text_phone_number_signup);
         BTsignUp = (Button)v.findViewById(R.id.button_signup);
         BTsignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,7 +34,8 @@ public class SignUpFragment extends Fragment{
                 String lastName = ETlastName.getText().toString();
                 String email = ETemail.getText().toString();
                 String password = ETpassword.getText().toString();
-                ParseHelper.signUpUser(firstName,lastName,email,password,getActivity());
+                String phoneNumber = ETphoneNumber.getText().toString();
+                ParseHelper.signUpUser(firstName,lastName,email,password, phoneNumber,getActivity());
             }
         });
         return v;

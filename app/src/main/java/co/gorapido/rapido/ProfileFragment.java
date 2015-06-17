@@ -31,7 +31,7 @@ import android.widget.Toast;
  * Created by Michael on 6/3/2015.
  */
 public class ProfileFragment extends Fragment {
-    TextView TVfullname, TVemail, TVpassword, TVrateRapido, TVcontactUs, TVtermsOfService, TVprivacyPolicy;
+    TextView TVfullname, TVemail, TVpassword, TVphoneNumber, TVrateRapido, TVcontactUs, TVtermsOfService, TVprivacyPolicy;
     Switch Savailable;
     ImageButton IBprofilePic;
     View v;
@@ -46,7 +46,11 @@ public class ProfileFragment extends Fragment {
         initializeWidgets(v);
         setFullname();
         TVemail.setText(ParseHelper.getEmailFromCurrentUser());
+        String phone = ParseHelper.getStringFromCurrentUser(ParseHelper.PHONE_NUMBER);
+        if(phone != null && phone != "")
+            TVphoneNumber.setText(phone);
         setNameListener();
+        setPhoneNumberListener();
         setPictureListener();
         setEmailListener();
         setPasswordListener();
@@ -56,7 +60,34 @@ public class ProfileFragment extends Fragment {
         setPrivacyPolicyListener();
         return v;
     }
+    public void setPhoneNumberListener(){
+        TVphoneNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditItemDialogFragment dialog = getDialog(EditItemDialogFragment.PHONE_VALUE);
+                dialog.setEditItemDialogListener(new EditItemDialogFragment.EditItemDialogListener() {
+                    @Override
+                    public void onDialogPositiveClick(EditItemDialogFragment dialog) {
+                        String phone = dialog.getText();
+                        if(ParseHelper.isPhoneValid(phone)){
+                            ParseHelper.setStringForCurrentUser(ParseHelper.PHONE_NUMBER, phone);
+                            dialog.dismiss();
+                            ParseHelper.saveCurrentUser();
+                            TVphoneNumber.setText(phone);
+                            Toast.makeText(getActivity(), R.string.success, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), R.string.phone_number_error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onDialogNegativeClick(EditItemDialogFragment dialog) {
+                    }
+                });
+                dialog.show(getFragmentManager(), EditItemDialogFragment.PHONE_VALUE);
+            }
+        });
+    }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -78,6 +109,7 @@ public class ProfileFragment extends Fragment {
 
     public void initializeWidgets(View v){
         TVfullname = (TextView)v.findViewById(R.id.text_view_fullname_profile);
+        TVphoneNumber = (TextView)v.findViewById(R.id.text_view_phone_number_profile);
         TVemail = (TextView)v.findViewById(R.id.text_view_email_profile);
         TVpassword = (TextView)v.findViewById(R.id.text_view_password_profile);
         TVrateRapido = (TextView)v.findViewById(R.id.text_view_rate_rapido_link_profile);

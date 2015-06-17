@@ -12,6 +12,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import java.util.Arrays;
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -20,6 +28,7 @@ public class SignInFragment extends Fragment {
     private EditText ETemail, ETpassword;
     private Button BTsignIn;
     private TextView TVsignUp;
+    private LoginButton loginButton;
     public SignInFragment() {
     }
     @Override
@@ -28,6 +37,25 @@ public class SignInFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_sign_in, container, false);
         ETemail = (EditText)v.findViewById(R.id.edit_text_email_signin);
         ETpassword = (EditText)v.findViewById(R.id.edit_text_password_signin);
+        loginButton = (LoginButton)v.findViewById(R.id.login_button);
+        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+        loginButton.registerCallback(SignInActivity.callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                ParseHelper.facebookLogin(Arrays.asList("public_profile", "email"), getActivity());
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });
 
         BTsignIn = (Button)v.findViewById(R.id.button_signin);
         BTsignIn.setOnClickListener(new View.OnClickListener() {

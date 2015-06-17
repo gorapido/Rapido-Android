@@ -36,15 +36,32 @@
                         android:id="@+id/image_button_profile"
                         />
                 </FrameLayout>
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    style="@style/ProfileText"
-                    android:clickable="true"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="@string/full_name_hint"
-                    android:id="@+id/text_view_fullname_profile"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileText"
+                        android:clickable="true"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="@string/full_name_hint"
+                        android:id="@+id/text_view_fullname_profile"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileText"
+                        android:clickable="true"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="123-456-7890"
+                        android:id="@+id/text_view_phone_number_profile"/>
+                    </LinearLayout>
             </LinearLayout>
             <View
                 style="@style/SmallDivider"/>

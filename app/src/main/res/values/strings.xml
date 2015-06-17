@@ -5,6 +5,7 @@
     <string name="email_hint">your_email@email.com</string>
     <string name="password_hint">Password</string>
     <string name="confirm_password_hint">Confirm Password</string>
+    <string name="phone_number_hint">Phone Number</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="signin">Sign In</string>
@@ -28,8 +29,11 @@
     <string name="email_error">You must enter a valid email address!</string>
     <string name="password_error">Password incorrect!</string>
     <string name="password_matching_error">Passwords do not match!</string>
+    <string name="phone_number_error">Please enter a valid phone number!</string>
+    <string name="general_entry_error">Invalid entry!</string>
     <string name="hire_tab">Hire</string>
     <string name="profile_tab">Profile</string>
+    <string name="facebook_app_id">869344706459126</string>
     <string name="action_settings">Settings</string>
 
 <!-- TODO: Remove or change this placeholder text -->
