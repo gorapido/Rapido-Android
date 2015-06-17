@@ -89,20 +89,19 @@ public class ParseHelper {
                     ParseHelper.companyList = new ArrayList<>();
                     CompanyListAdapter listAdapter = new CompanyListAdapter(ParseHelper.companyList, ParseHelper.context);
                     ParseHelper.listView.setAdapter(listAdapter);
-                    for(int i = 0; i < companies.size(); i++){
-                        String name = companies.get(i).get(COMPANY_NAME).toString();
-                        Log.d(TAG, "Name: " + name);
-                        String category = companies.get(i).get(COMPANY_CATEGORY).toString();
-                        Log.d(TAG, "Category: " + category);
-                        String phone = companies.get(i).get(COMPANY_PHONE).toString();
-                        Log.d(TAG, "Phone: " + phone);
-                        String site = companies.get(i).get(COMPANY_SITE).toString();
-                        Log.d(TAG, "Site: " + site);
-                        String summary = companies.get(i).get(COMPANY_SUMMARY).toString();
-                        Log.d(TAG, "Summary: " + summary);
-                        Company aCompany = new Company(name, category, phone, site, summary);
-                        ParseFile logoFile = companies.get(i).getParseFile(COMPANY_LOGO);
-                        logoFile.getDataInBackground(new GetCompanyCallback(aCompany, listAdapter));
+                    if(companies.size() > 0) {
+                        for (int i = 0; i < companies.size(); i++) {
+                            String name = companies.get(i).get(COMPANY_NAME).toString();
+                            String category = companies.get(i).get(COMPANY_CATEGORY).toString();
+                            String phone = companies.get(i).get(COMPANY_PHONE).toString();
+                            String site = companies.get(i).get(COMPANY_SITE).toString();
+                            String summary = companies.get(i).get(COMPANY_SUMMARY).toString();
+                            Company aCompany = new Company(name, category, phone, site, summary);
+                            ParseFile logoFile = companies.get(i).getParseFile(COMPANY_LOGO);
+                            logoFile.getDataInBackground(new GetCompanyCallback(aCompany, listAdapter));
+                        }
+                    }else{
+                        Toast.makeText(ParseHelper.context, "There are 0 companies!", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Toast.makeText(ParseHelper.context, "Error loading companies", Toast.LENGTH_SHORT).show();

@@ -2,7 +2,7 @@
 <resources>
     <string-array
         name="categories_of_companies">
-        <item>Air Conditioning &amp; Heating</item>
+        <item>Air &amp; Heating</item>
         <item>Plumbing</item>
         <item>Electricity</item>
         <item>Other</item>

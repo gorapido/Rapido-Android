@@ -1,5 +1,6 @@
 package co.gorapido.rapido;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,27 +9,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 /**
- * Created by rapido on 6/16/15.
+ * Created by Michael on 6/16/2015.
  */
-public class ListingActivity extends AppCompatActivity {
+public class CompanyProfileActivity extends AppCompatActivity {
     Toolbar toolbar;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_frame);
+        setContentView(R.layout.sign_in_frame);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FragmentManager fm = getFragmentManager();
-        CompanyListFragment fragment = new CompanyListFragment();
         Intent i = getIntent();
-        String currentCategory = i.getStringExtra(CompanyListFragment.CATEGORY);
-        Bundle args = new Bundle();
-        args.putString(CompanyListFragment.CATEGORY, currentCategory);
+        FragmentManager fm = getFragmentManager();
+        Fragment fragment = new CompanyProfileFragment();
+        Bundle args = i.getBundleExtra(CompanyProfileFragment.COMPANY);
         fragment.setArguments(args);
-        fm.beginTransaction().replace(R.id.frame_layout_list, fragment).commit();
+        fm.beginTransaction().add(R.id.sign_in_frame, fragment).commit();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,6 +33,7 @@ public class ListingActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.menu_default, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

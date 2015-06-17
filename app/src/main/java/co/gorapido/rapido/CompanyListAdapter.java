@@ -37,7 +37,11 @@ public class CompanyListAdapter extends BaseAdapter{
     }
     public void add(Company company){
         objects.add(company);
+        ParseHelper.companyList = getCompanies();
         notifyDataSetChanged();
+    }
+    public List<Company> getCompanies(){
+        return objects;
     }
     @Override
     public Object getItem(int position) {
