@@ -1,14 +1,11 @@
 package co.gorapido.rapido;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,9 +28,7 @@ import com.parse.SignUpCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,6 +43,8 @@ public class ParseHelper {
     public static String LAST_NAME = "lastName";
     public static String PHONE_NUMBER = "phone";
     public static String AVATAR = "avatar";
+    public static String FACEBOOK_ID = "facebookID";
+    public static String IS_FACEBOOK_USER = "isFacebookUser";
     public static String COMPANY_TABLE = "Company";
     public static String COMPANY_CATEGORY = "category";
     public static String COMPANY_LOGO = "logo";
@@ -63,6 +60,7 @@ public class ParseHelper {
     public static ListView listView;
     public static ParseUser currentUser;
     public static String avatarString;
+    public static boolean isFacebookUser = false;
     public static void initializeConnection(Activity context) {
         // Enable Local Datastore.
         Parse.enableLocalDatastore(context);
@@ -95,7 +93,11 @@ public class ParseHelper {
             @Override
             public void done(ParseUser user, ParseException err) {
                 if (user == null) {
-                    Log.d("MyApp", err.getMessage());
+                    if (err != null) {
+                        Log.d(TAG, err.getMessage());
+                    } else {
+                        Log.d(TAG, "Error logging in.");
+                    }
                 } else if (user.isNew()) {
                     GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                         @Override
@@ -103,6 +105,8 @@ public class ParseHelper {
                             try {
                                 setStringForCurrentUser(FIRST_NAME, object.getString(FacebookHelper.FIRST_NAME));
                                 setStringForCurrentUser(LAST_NAME, object.getString(FacebookHelper.LAST_NAME));
+                                isFacebookUser = true;
+                                currentUser.put(IS_FACEBOOK_USER, isFacebookUser);
                                 String email = object.getString(FacebookHelper.EMAIL);
                                 if (email != null) {
                                     setEmailForCurrentUser(email);
@@ -122,6 +126,7 @@ public class ParseHelper {
                     request.setParameters(parameters);
                     request.executeAsync();
                 } else {
+                    isFacebookUser = true;
                     Intent i = new Intent(context, HomeActivity.class);
                     context.startActivity(i);
                 }
@@ -276,6 +281,41 @@ public class ParseHelper {
     }
     public static boolean isPhoneValid(String phoneNumber){
         return phoneNumber.length() > 6 && phoneNumber.length() < 13;
+    }
+    public static String getFacebookIDFromCurrentUser(){
+        String facebookID = null;
+        if(!isCurrentUser()){
+            return null;
+        }
+        Object facebookObj = currentUser.get(FACEBOOK_ID);
+        if(facebookObj != null){
+            facebookID = facebookObj.toString();
+        }
+        if(facebookID != null && !facebookID.equals("")){
+            return facebookID;
+        }else{
+            if(currentUser.getBoolean(IS_FACEBOOK_USER) || isFacebookUser){
+                GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try {
+                            String id = object.getString(FacebookHelper.ID);
+                            currentUser.put(FACEBOOK_ID, id);
+                            currentUser.put(IS_FACEBOOK_USER, true);
+                            saveCurrentUser();
+                        } catch (JSONException e) {
+                            Log.e(TAG, e.getMessage());
+                        }
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", FacebookHelper.PARAMETERS);
+                request.setParameters(parameters);
+                request.executeAndWait();
+                return currentUser.get(FACEBOOK_ID).toString();
+            }
+        }
+        return null;
     }
 }
 

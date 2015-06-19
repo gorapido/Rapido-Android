@@ -35,6 +35,7 @@ public class ProfileFragment extends Fragment {
     Switch Savailable;
     ImageButton IBprofilePic;
     View v;
+    boolean imageLoaded = false;
     int imgHeight = 0;
     int imgWidth = 0;
     String imgDecodableString;
@@ -58,6 +59,14 @@ public class ProfileFragment extends Fragment {
         setRateRapidoListener();
         setTermsOfServiceListener();
         setPrivacyPolicyListener();
+        FacebookIDFetcher fetcher = new FacebookIDFetcher();
+        fetcher.setDelegate(new FacebookIDFetcher.TaskDelegate() {
+            @Override
+            public void taskCompletionResult() {
+                updateProfilePic();
+            }
+        });
+        fetcher.execute();
         return v;
     }
     public void setPhoneNumberListener(){
@@ -65,11 +74,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 EditItemDialogFragment dialog = getDialog(EditItemDialogFragment.PHONE_VALUE);
+                dialog.setHint(R.string.phone_number_hint);
+                dialog.setIsPhone(true);
                 dialog.setEditItemDialogListener(new EditItemDialogFragment.EditItemDialogListener() {
                     @Override
                     public void onDialogPositiveClick(EditItemDialogFragment dialog) {
                         String phone = dialog.getText();
-                        if(ParseHelper.isPhoneValid(phone)){
+                        if (ParseHelper.isPhoneValid(phone)) {
                             ParseHelper.setStringForCurrentUser(ParseHelper.PHONE_NUMBER, phone);
                             dialog.dismiss();
                             ParseHelper.saveCurrentUser();
@@ -98,10 +109,17 @@ public class ProfileFragment extends Fragment {
                 imgWidth = IBprofilePic.getWidth();
                 imgHeight = IBprofilePic.getHeight();
                 ParseHelper.retrieveAvatar(IBprofilePic, imgWidth, imgHeight);
+                imageLoaded = true;
             }
         });
     }
-
+    public void updateProfilePic(){
+        if(imageLoaded){
+            imgWidth = IBprofilePic.getWidth();
+            imgHeight = IBprofilePic.getHeight();
+            ParseHelper.retrieveAvatar(IBprofilePic, imgWidth, imgHeight);
+        }
+    }
     private void setFullname() {
         TVfullname.setText(ParseHelper.getStringFromCurrentUser(ParseHelper.FIRST_NAME) + " "
                 + ParseHelper.getStringFromCurrentUser(ParseHelper.LAST_NAME));
@@ -125,6 +143,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 EditItemDialogFragment dialog = getDialog(EditItemDialogFragment.NAME_VALUE);
+                dialog.setHint(R.string.full_name_hint);
                 dialog.setEditItemDialogListener(new EditItemDialogFragment.EditItemDialogListener() {
                     @Override
                     public void onDialogPositiveClick(EditItemDialogFragment dialog) {
@@ -183,6 +202,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 EditItemDialogFragment dialog = getDialog(EditItemDialogFragment.EMAIL_VALUE);
+                dialog.setHint(R.string.email_hint);
                 dialog.setEditItemDialogListener(new EditItemDialogFragment.EditItemDialogListener() {
                     @Override
                     public void onDialogPositiveClick(EditItemDialogFragment dialog) {
@@ -273,6 +293,7 @@ public class ProfileFragment extends Fragment {
     private void confirmPassword(){
         EditItemDialogFragment dialog = getDialog(EditItemDialogFragment.CONFIRM_PASSWORD_VALUE);
         dialog.setIsPassword(true);
+        dialog.setHint(R.string.password_hint);
         dialog.setEditItemDialogListener(new EditItemDialogFragment.EditItemDialogListener() {
             @Override
             public void onDialogPositiveClick(EditItemDialogFragment dialog) {

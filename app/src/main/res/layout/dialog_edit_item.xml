@@ -1,10 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="200sp"
-              android:background="@color/dark_blue"
               android:layout_height="wrap_content">
     <EditText
         android:id="@+id/edit_text_item_dialog"
+        android:textColorHint="@color/light_blue"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

@@ -33,24 +33,24 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.sign_in_frame);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getApplicationContext(), R.string.success, Toast.LENGTH_SHORT).show();
-                ParseHelper.facebookLogin(Arrays.asList("public_profile", "email"), current);
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-
-            }
-        });
+//        callbackManager = CallbackManager.Factory.create();
+//        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                Toast.makeText(getApplicationContext(), R.string.success, Toast.LENGTH_SHORT).show();
+//                ParseHelper.facebookLogin(Arrays.asList("public_profile", "email"), current);
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//
+//            @Override
+//            public void onError(FacebookException e) {
+//
+//            }
+//        });
         if(!ParseHelper.isCurrentUser()) {
             FragmentManager fm = getFragmentManager();
             fragment = fm.findFragmentById(R.id.sign_in_frame);
@@ -71,8 +71,8 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        fragment.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+//        fragment.onActivityResult(requestCode, resultCode, data);
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
 }

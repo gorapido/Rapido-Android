@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -19,12 +20,15 @@ public class EditItemDialogFragment extends DialogFragment {
         public void onDialogPositiveClick(EditItemDialogFragment dialog);
         public void onDialogNegativeClick(EditItemDialogFragment dialog);
     }
+    public static final String TAG = "EditItemDialogFragment";
     public static final String TYPE_KEY = "type";
     public static final String NAME_VALUE = "Edit Name";
     public static final String EMAIL_VALUE = "Edit Email";
     public static final String PHONE_VALUE = "Edit Phone Number";
     public static final String CONFIRM_PASSWORD_VALUE = "Confirm Password";
+    private int id = 0;
     private boolean isPassword = false;
+    private boolean isPhone = false;
     String type;
     EditText text;
     EditItemDialogListener listener;
@@ -66,6 +70,11 @@ public class EditItemDialogFragment extends DialogFragment {
                 });
         if(isPassword){
             setToPassword();
+        }else if(isPhone){
+            setToPhone();
+        }
+        if(id != 0){
+            text.setHint(id);
         }
         // Create the AlertDialog object and return it
         return builder.create();
@@ -73,10 +82,20 @@ public class EditItemDialogFragment extends DialogFragment {
     public void setIsPassword(boolean isPassword){
         this.isPassword = isPassword;
     }
+    public void setIsPhone(boolean isPhone){
+        this.isPhone = isPhone;
+    }
     private void setToPassword(){
         text.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_PASSWORD);
         text.setSelection(text.getText().length());
+    }
+    private void setToPhone(){
+        text.setInputType(InputType.TYPE_CLASS_PHONE);
+        text.setSelection(text.getText().length());
+    }
+    public void setHint(int id){
+        this.id = id;
     }
     public String getText(){
         return text.getText().toString();

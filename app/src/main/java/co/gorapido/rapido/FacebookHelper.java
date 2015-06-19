@@ -18,6 +18,7 @@ public class FacebookHelper {
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
     public static final String EMAIL = "email";
+    public static final String ID = "id";
     public static final String PARAMETERS = "first_name,last_name,email";
     public static void initializeFacebook(Context context){
         if(!isInitialized) {
