@@ -11,6 +11,10 @@
     <string name="signin">Sign In</string>
     <string name="signup">Sign Up</string>
     <string name="full_name_hint">John Smith</string>
+    <string name="street_hint">101 S. Garland St.</string>
+    <string name="city_hint">Orlando</string>
+    <string name="state_hint">FL</string>
+    <string name="zipcode_hint">32801</string>
     <string name="name_title">Name:</string>
     <string name="email_title">Email:</string>
     <string name="password_title">Password:</string>
@@ -23,6 +27,7 @@
     <string name="logout_menu">Logout</string>
     <string name="change_dialog">Edit</string>
     <string name="ok_button">Ok</string>
+    <string name="submit_button">Submit</string>
     <string name="cancel_button">Cancel</string>
     <string name="success">Success!</string>
     <string name="name_error">You must have a first and a last name!</string>
@@ -34,8 +39,6 @@
     <string name="hire_tab">Hire</string>
     <string name="profile_tab">Profile</string>
     <string name="facebook_app_id">869344706459126</string>
+    <string name="category_prompt">Please choose a category:</string>
     <string name="action_settings">Settings</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

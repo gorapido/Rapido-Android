@@ -6,5 +6,6 @@
         <item>Plumbing</item>
         <item>Electricity</item>
         <item>Other</item>
+        <item>Please choose a category:</item>
     </string-array>
 </resources>

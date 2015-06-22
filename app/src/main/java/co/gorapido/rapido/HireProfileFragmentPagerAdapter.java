@@ -18,7 +18,8 @@ public class HireProfileFragmentPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if(position == 0){
-            return new HireFragment();
+            //return new HireFragment();
+            return new SchedulingFragment();
         }else{
             return new ProfileFragment();
         }

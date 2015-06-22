@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,20 +40,30 @@ import java.util.regex.Pattern;
  * Created by Michael on 6/3/2015.
  */
 public class ParseHelper {
-    public static String FIRST_NAME = "firstName";
-    public static String LAST_NAME = "lastName";
-    public static String PHONE_NUMBER = "phone";
-    public static String AVATAR = "avatar";
-    public static String FACEBOOK_ID = "facebookID";
-    public static String IS_FACEBOOK_USER = "isFacebookUser";
-    public static String COMPANY_TABLE = "Company";
-    public static String COMPANY_CATEGORY = "category";
-    public static String COMPANY_LOGO = "logo";
-    public static String COMPANY_NAME = "name";
-    public static String COMPANY_PHONE = "phone";
-    public static String COMPANY_SITE = "site";
-    public static String COMPANY_SUMMARY = "summary";
-    public static String TAG = "ParseHelper";
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
+    public static final String PHONE_NUMBER = "phone";
+    public static final String AVATAR = "avatar";
+    public static final String STREET = "street";
+    public static final String CITY = "city";
+    public static final String STATE = "state";
+    public static final String POSTAL_CODE = "postalCode";
+    public static final String PROBLEM = "problem";
+    public static final String CONSUMER = "consumer";
+    public static final String START_DATE = "start";
+    public static final String COMPANY = "company";
+    public static final String COORDINATES = "coordinates";
+    public static final String JOB_TABLE = "Job";
+    public static final String FACEBOOK_ID = "facebookID";
+    public static final String IS_FACEBOOK_USER = "isFacebookUser";
+    public static final String COMPANY_TABLE = "Company";
+    public static final String COMPANY_CATEGORY = "category";
+    public static final String COMPANY_LOGO = "logo";
+    public static final String COMPANY_NAME = "name";
+    public static final String COMPANY_PHONE = "phone";
+    public static final String COMPANY_SITE = "site";
+    public static final String COMPANY_SUMMARY = "summary";
+    public static final String TAG = "ParseHelper";
     public static List<Company> companyList;
     public static boolean connected = false;
     public static boolean isLoggedIn;
@@ -316,6 +327,14 @@ public class ParseHelper {
             }
         }
         return null;
+    }
+    public static void createJob(Date date, String category, String problem){
+        ParseObject job = new ParseObject(JOB_TABLE);
+        job.put(START_DATE, date);
+        job.put(COMPANY_CATEGORY, category);
+        job.put(PROBLEM, problem);
+        job.put(CONSUMER, currentUser);
+        job.saveInBackground();
     }
 }
 

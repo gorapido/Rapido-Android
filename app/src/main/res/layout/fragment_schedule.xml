@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/light_blue"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <EditText
+        android:id="@+id/edit_text_street"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:hint="@string/street_hint"
+        android:textColorHint="@color/grey"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <EditText
+            android:id="@+id/edit_text_city"
+            android:layout_width="0dp"
+            android:hint="@string/city_hint"
+            android:textColorHint="@color/grey"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
+        <EditText
+            android:id="@+id/edit_text_state"
+            android:layout_width="32sp"
+            android:inputType="textCapCharacters"
+            android:maxLength="2"
+            android:hint="@string/state_hint"
+            android:textColorHint="@color/grey"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edit_text_postal_code"
+            android:layout_width="0dp"
+            android:inputType="number"
+            android:hint="@string/zipcode_hint"
+            android:textColorHint="@color/grey"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <View
+        style="@style/SmallDivider"/>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:padding="16dp"
+        android:prompt="@string/category_prompt"
+        android:entries="@array/categories_of_companies"
+        android:id="@+id/spinner_categories" />
+    <View
+        style="@style/SmallDivider"/>
+    <LinearLayout
+        android:id="@+id/linear_layout_date_time_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:padding="16dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Date:"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="01/02/2015 6:00PM"
+            android:id="@+id/text_view_date_time_picker" />
+    </LinearLayout>
+    <View
+        style="@style/SmallDivider"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:background="@color/white"
+        android:textColor="@color/dark_blue"
+        android:hint="Please describe your problem."
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/edit_text_problem_description"/>
+    <View
+        style="@style/SmallDivider"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:textSize="32sp"
+        android:text="@string/submit_button"
+        android:background="@color/dark_blue"
+        android:id="@+id/button_submit"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

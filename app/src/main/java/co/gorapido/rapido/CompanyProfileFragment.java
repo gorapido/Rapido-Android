@@ -49,9 +49,8 @@ public class CompanyProfileFragment extends Fragment {
         BTHire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri telephoneNumber = Uri.parse("tel:"+current.getPhone());
-                Intent i = new Intent(Intent.ACTION_DIAL, telephoneNumber);
-                startActivity(i);
+//                Uri telephoneNumber = Uri.parse("tel:"+current.getPhone());
+//                Intent i = new Intent(Intent.ACTION_DIAL, telephoneNumber);
             }
         });
         return v;

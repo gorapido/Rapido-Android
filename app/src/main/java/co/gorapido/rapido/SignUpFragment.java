@@ -30,14 +30,40 @@ public class SignUpFragment extends Fragment{
         BTsignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String firstName = ETfirstName.getText().toString();
-                String lastName = ETlastName.getText().toString();
-                String email = ETemail.getText().toString();
-                String password = ETpassword.getText().toString();
-                String phoneNumber = ETphoneNumber.getText().toString();
-                ParseHelper.signUpUser(firstName,lastName,email,password, phoneNumber,getActivity());
+                if(validInput()) {
+                    String firstName = ETfirstName.getText().toString();
+                    String lastName = ETlastName.getText().toString();
+                    String email = ETemail.getText().toString();
+                    String password = ETpassword.getText().toString();
+                    String phoneNumber = ETphoneNumber.getText().toString();
+                    ParseHelper.signUpUser(firstName, lastName, email, password, phoneNumber, getActivity());
+                }else{
+                    Toast.makeText(getActivity(), "Please fill out all of the forms", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return v;
+    }
+    private boolean validInput(){
+        boolean isValid = true;
+        if(isEmpty(ETfirstName)){
+            isValid = false;
+        }
+        if(isEmpty(ETlastName)){
+            isValid = false;
+        }
+        if(isEmpty(ETemail)){
+            isValid = false;
+        }
+        if(isEmpty(ETpassword)){
+            isValid = false;
+        }
+        if(isEmpty(ETphoneNumber)){
+            isValid = false;
+        }
+        return isValid;
+    }
+    private boolean isEmpty(EditText text){
+        return text.getText() == null;
     }
 }
