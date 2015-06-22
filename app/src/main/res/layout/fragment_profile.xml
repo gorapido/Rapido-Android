@@ -79,27 +79,27 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/text_view_password_profile"
                 android:text="@string/change_password_title"/>
-            <View
-                style="@style/SmallDivider"/>
-            <LinearLayout
-                style="@style/ProfileLink"
-                android:layout_width="match_parent"
-                android:paddingBottom="16dp">
-                <TextView
-                    style="@style/ProfileText"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:paddingRight="10dp"
-                    android:text="@string/available_title"/>
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/switch_available_profile"
-                    android:textOn="YES"
-                    android:textOff="NO"
-                    android:layout_gravity="right|center"/>
-            </LinearLayout>
+            <!--<View-->
+                <!--style="@style/SmallDivider"/>-->
+            <!--<LinearLayout-->
+                <!--style="@style/ProfileLink"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:paddingBottom="16dp">-->
+                <!--<TextView-->
+                    <!--style="@style/ProfileText"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:paddingRight="10dp"-->
+                    <!--android:text="@string/available_title"/>-->
+                <!--<Switch-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/switch_available_profile"-->
+                    <!--android:textOn="YES"-->
+                    <!--android:textOff="NO"-->
+                    <!--android:layout_gravity="right|center"/>-->
+            <!--</LinearLayout>-->
             <View
                 style="@style/SmallDivider"/>
             <TextView

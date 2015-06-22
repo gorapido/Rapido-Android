@@ -134,7 +134,7 @@ public class ProfileFragment extends Fragment {
         TVcontactUs = (TextView)v.findViewById(R.id.text_view_contact_us_link_profile);
         TVtermsOfService = (TextView)v.findViewById(R.id.text_view_terms_of_service_link_profile);
         TVprivacyPolicy = (TextView)v.findViewById(R.id.text_view_privacy_policy_link_profile);
-        Savailable = (Switch)v.findViewById(R.id.switch_available_profile);
+//        Savailable = (Switch)v.findViewById(R.id.switch_available_profile);
         IBprofilePic = (ImageButton)v.findViewById(R.id.image_button_profile);
     }
 
